@@ -48,45 +48,36 @@ voice_agent_project/
 ### Backend
 Add the following to `requirements.txt`:
 ```
-fastapi==0.100.0
-uvicorn==0.23.0
-django==4.2.0
-prisma==0.9.0
-twilio==8.5.0
-deepgram-sdk==2.12.0
-transformers==4.30.0
-datasets==2.14.0
-torch==2.0.0
-aiohttp==3.8.5
-python-dotenv==1.0.0
-PyPDF2==3.0.1
-cachetools==5.3.1
-prometheus-client==0.17.0
-scikit-learn==1.3.0
-```
-
-### Frontend
-Add the following to `voice-agent-frontend/package.json`:
-```json
-{
-  "dependencies": {
-    "next": "^13.4.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "axios": "^1.4.0"
-  },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  }
-}
+django
+fastapi
+uvicorn
+prisma
+deepgram-sdk
+twilio
+python-dotenv
+transformers
+torch
+bentoml
+tenacity
+aiohttp
+cachetools
+prometheus-client
+psycopg2
+tiktoken 
+protobuf
+setuptools
+requests
+PyPDF2
+datasets
+scikit-learn
+huggingface_hub[hf_xet]
+transformers[torch]
 ```
 
 ## Setup Instructions
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/vishalmaurya850/PM-Kusum
 cd voice_agent_project
 ```
 
@@ -111,15 +102,9 @@ NEXT_PUBLIC_API_URL=http://127.0.0.1:8001  # Update to NGROK_URL if using Ngrok
 ### 3. Install Backend Dependencies
 ```bash
 python -m venv venv
-.\venv\Scripts\activate  # On Windows
+venv/Scripts/activate  # On Windows
 # source venv/bin/activate  # On Linux/Mac
 pip install -r requirements.txt
-```
-
-Verify `transformers` version:
-```bash
-pip show transformers
-# Should be >=4.30.0, <5.0.0
 ```
 
 ### 4. Install Frontend Dependencies
@@ -165,7 +150,7 @@ model Followup {
 3. Generate Prisma client:
 ```bash
 cd voice_agent_project
-.\venv\Scripts\activate
+venv/Scripts/activate
 prisma generate
 ```
 
@@ -178,12 +163,12 @@ prisma generate
   - Aim for 50+ calls to create a robust dataset.
 
 ## Running the Application
-### 1. Start Ngrok
-Expose the local server for Twilio and Deepgram:
+### 1. Run the Backend
 ```bash
-ngrok http 8001
+cd voice_agent_project
+.\venv\Scripts\activate
+python manage.py runserver
 ```
-- Copy the Ngrok URL (e.g., `https://your-ngrok-domain.ngrok.io`) and update `NGROK_URL` in `.env` and `NEXT_PUBLIC_API_URL` in `voice-agent-frontend/.env`.
 
 ### 2. Run the Backend
 ```bash
@@ -192,7 +177,14 @@ cd voice_agent_project
 python manage.py runfastapi --port 8001
 ```
 
-### 3. Run the Frontend
+### 3. Start Ngrok
+Expose the local server for Twilio and Deepgram:
+```bash
+ngrok http 8001
+```
+
+- Copy the Ngrok URL (e.g., `https://your-ngrok-domain.ngrok.io`) and update `NGROK_URL` in `.env` and `NEXT_PUBLIC_API_URL` in `voice-agent-frontend/.env`.
+### 4. Run the Frontend
 ```bash
 cd voice-agent-frontend
 npm run dev
@@ -271,10 +263,6 @@ npm run dev
      print(tokenized[0])  # Ensure 'labels' is present
      ```
    - **Empty Dataset**: Ensure `PM_KUSUM_Knowledge_Base.pdf` is readable and `CallAnalysis` has 50+ transcripts.
-   - **Transformers Version**: Ensure `transformers==4.30.0`:
-     ```bash
-     pip install transformers==4.30.0
-     ```
 
 2. **Pin Memory Warning**:
    - If PyTorch warns about `pin_memory`, confirm CPU training:
@@ -305,11 +293,11 @@ npm run dev
 - **Multilingual Support**: Extend beyond Hindi using `bert-base-multilingual-cased`.
 
 ## Contributing
-- Submit pull requests to `<your-repo-url>`.
+- Submit pull requests to `https://github.com/vishalmaurya850/PM-Kusum`.
 - Report issues via GitHub Issues, including logs and error details.
 
 ## License
 MIT License. See `LICENSE` for details.
 
 ## Contact
-For support, contact `<your-email>` or raise an issue on GitHub.
+For support, contact `vishalmaurya850@gmail.com` or raise an issue on GitHub.
