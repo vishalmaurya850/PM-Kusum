@@ -167,24 +167,17 @@ prisma generate
 ```bash
 cd voice_agent_project
 .\venv\Scripts\activate
-python manage.py runserver
-```
-
-### 2. Run the Backend
-```bash
-cd voice_agent_project
-.\venv\Scripts\activate
 python manage.py runfastapi --port 8001
 ```
 
-### 3. Start Ngrok
+### 2. Start Ngrok
 Expose the local server for Twilio and Deepgram:
 ```bash
 ngrok http 8001
 ```
 
 - Copy the Ngrok URL (e.g., `https://your-ngrok-domain.ngrok.io`) and update `NGROK_URL` in `.env` and `NEXT_PUBLIC_API_URL` in `voice-agent-frontend/.env`.
-### 4. Run the Frontend
+### 3. Run the Frontend
 ```bash
 cd voice-agent-frontend
 npm run dev
