@@ -55,7 +55,7 @@ jobs:
         with:
           name: python-app
           path: |
-            ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/.
+            ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
             !${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/venv/
   deploy:
     runs-on: ubuntu-latest
@@ -76,3 +76,4 @@ jobs:
           startup-command: 'gunicorn --bind=0.0.0.0:8001 voice_agent_app.wsgi:application'
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C93E3A87E24141D283FE487F79CF6009 }}
+
