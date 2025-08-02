@@ -36,25 +36,31 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
       - name: Generate Prisma Client
         run: prisma generate
+        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
       - name: Run migrations
         run: python -m prisma db push
+        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       # Optional: Add step to run tests here
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
+        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: python-app
           path: |
-            release.zip
-            !venv/
+            ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/release.zip
+            !${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/venv/
 
   deploy:
     runs-on: ubuntu-latest
@@ -86,5 +92,7 @@ jobs:
           app-name: 'pmkusum'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          startup-command: 'gunicorn --bind=0.0.0.0:10000 voice_agent_app.wsgi:application'
 
           
+
