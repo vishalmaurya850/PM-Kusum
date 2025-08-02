@@ -14,9 +14,9 @@ import { Phone, Loader2, CheckCircle, XCircle, Info } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
 export default function Home() {
-  const [testNumber, setTestNumber] = useState("+1234567890")
-  const [twilioNumber, setTwilioNumber] = useState("+0987654321")
-  const [callId, setCallId] = useState("test_call_3")
+  const [testNumber, setTestNumber] = useState("+919628525211")
+  const [twilioNumber, setTwilioNumber] = useState("+12545363489")
+  const [callId, setCallId] = useState("")
   const [response, setResponse] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -29,7 +29,7 @@ export default function Home() {
     setResponse(null)
 
     try {
-      const apiUrl = "http://127.0.0.1:8001"
+      const apiUrl = "https://pm-kusum.onrender.com"
       const res = await axios.post(
         `${apiUrl}/api/start-call`,
         {
@@ -93,10 +93,10 @@ export default function Home() {
                   type="text"
                   value={testNumber}
                   onChange={(e) => setTestNumber(e.target.value)}
-                  placeholder="+1234567890"
+                  placeholder="+919628525211"
                   required
                 />
-                <p className="text-xs text-muted-foreground">E.164 प्रारूप में नंबर दर्ज करें (जैसे +1234567890)</p>
+                <p className="text-xs text-muted-foreground">E.164 प्रारूप में नंबर दर्ज करें (जैसे +919628525211)</p>
               </div>
 
               <div className="space-y-2">
@@ -108,7 +108,7 @@ export default function Home() {
                   type="text"
                   value={twilioNumber}
                   onChange={(e) => setTwilioNumber(e.target.value)}
-                  placeholder="+0987654321"
+                  placeholder="+12545363489"
                   required
                 />
                 <p className="text-xs text-muted-foreground">E.164 प्रारूप में ट्विलियो नंबर दर्ज करें</p>
@@ -123,7 +123,7 @@ export default function Home() {
                   type="text"
                   value={callId}
                   onChange={(e) => setCallId(e.target.value)}
-                  placeholder="test_call_3"
+                  placeholder="test_call_1"
                   required
                 />
                 <p className="text-xs text-muted-foreground">कॉल को ट्रैक करने के लिए यूनीक आईडी दर्ज करें</p>
