@@ -10,6 +10,3 @@ prisma generate
  
 # Run migrations
 python -m prisma db push
-
-# Run database migrations (optional, if using Django migrations)
-python manage.py migrate
