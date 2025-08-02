@@ -9,10 +9,7 @@ pip install -r requirements.txt
 prisma generate
  
 # Run migrations
-python -m prisma db push   
-
-# Collect Django static files (if applicable)
-python manage.py collectstatic --no-input
+python -m prisma db push
 
 # Run database migrations (optional, if using Django migrations)
 python manage.py migrate
